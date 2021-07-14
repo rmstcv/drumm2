@@ -1,0 +1,16 @@
+.pad-wrapper {
+    display: flex;
+}
+
+.pad-name {
+    text-align: left;
+}
+
+.pad {
+    width: 3vw;
+    height: 3vw;
+    margin: 2px 2px;
+    cursor: pointer;
+    background: rgb(33 33 33 / 72%);
+    border-radius: 3px;
+}
