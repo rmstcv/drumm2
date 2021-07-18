@@ -1,4 +1,3 @@
-import { identifier } from '@babel/types';
 import React, {Component} from 'react';
 import "./Drum.css";
 
@@ -7,55 +6,111 @@ class Drum extends Component {
         super(props);
         this.state = {
             pads: [{id: 0,
-                    active: false
+                    selected: false,
                   }],
-            numberOfPads: 8,
-            pad: "pad"
+            activePad: false,
+            start: false
         };
-
-        
+        this.active = 0; 
+        // this.timer = false;
+        // this.interval = this.interval.bind(this);
+        // this.start = this.start.bind(this);
     }
 
     componentDidMount () {
-        let arr = [];
-        for (let i = 1; i <= this.state.numberOfPads; i++) {
-            arr.push({id: i, active: false});
-        }
-        this.setState({pads: arr})
+        console.log("componentDidMount");
+        this.createPatterns();
     };
 
+    componentDidUpdate (prevProps) {
+        if (this.props.state.play !== prevProps.state.play) {
+            this.start();
+        }
+    }
+
+    createPatterns = () => {
+        const {numberOfPads} = this.props.state;
+        const arr = [];
+        for (let i = 1; i <= numberOfPads; i++) {
+            arr.push({id: i, selected: false});
+        }
+        this.setState({pads: arr});
+    }
+
     selectPattern = ({id}) => {
-       
-           //let isActive = this.state.pads[id].active === false? "pad" : "pad active";
-        
         let newPads = this.state.pads.map(pad => {
             if (pad.id === id) {
-                switch (pad.active) {
+                switch (pad.selected) {
                     case false: 
                         return {
-                            id: id,
-                            active: true
+                            ...pad,
+                            selected: true
                         }
-                        break;
-
                     case true: 
                         return {
-                            id: id,
-                            active: false
-                        }
-                        break;
+                            ...pad,
+                            selected: false
+                        }   
+                    default: 
+                        return {...pad};  
                 }
             } else {
                 return pad;
             }
         })
-           let newState = {...this.state};
-           newState.pads = newPads;
-           this.setState({pads: newPads});
+        let newState = {...this.state};
+        newState.pads = newPads;
+        this.setState({pads: newPads});
     };
 
+    isSelected = ({selected, id}) => {
+        //return (selected === false? "pad" : "pad selected");
+        if (selected === true && id === this.state.activePad) {
+            return "pad selected active"
+        } else {
+            if (selected === true && id !== this.state.activePad) {
+                return "pad selected"
+            } else {
+                return "pad"
+            }
+        }
+    }
+
+    start = () => {
+        this.active = 0;
+        if (this.props.state.play) {
+            this.timer = setInterval(() => {this.repeat()}, 1000);
+            console.log("start");
+        } else {
+            clearInterval(this.timer)
+            console.log("stop");
+        }  
+    }
+
+    repeat = () => {
+        let arrActive = this.state.pads.map(item => {
+            if (item.selected) {
+                return ("active")
+            } else {
+                return (item.id)
+            }
+        });
+
+        if (arrActive[this.active] === "active") {
+            this.setState({activePad: this.active + 1});
+        } else {
+             this.setState({activePad: false})
+        }
+
+        if (this.active === arrActive.length - 1) {
+            this.active = 0;
+        } else {
+            this.active++;
+        } 
+    }
 
     render() {
+        console.log("render");
         return (
             <div>
                 <div className="pad-name">
@@ -67,7 +122,7 @@ class Drum extends Component {
                             return (
                                 <div key={item.id} 
                                      onClick={() => this.selectPattern(item)} 
-                                     className={item.active == false? "pad" : "pad active"}>
+                                     className={this.isSelected(item)}>
                                 </div>
                             )
                         })

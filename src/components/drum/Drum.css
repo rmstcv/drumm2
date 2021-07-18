@@ -14,6 +14,17 @@
     background: rgb(33 33 33 / 72%);
     border-radius: 3px;
 }
-.active {
+.selected {
     background: rgb(255 255 255 / 72%);
+}
+
+.active {
+    animation: activePad;
+    animation-duration: 0.3s;
+    
+}
+
+@keyframes activePad {
+  from {background: rgb(255 255 255 / 22%);}
+  to {background: rgb(255 255 255 / 22%);}
 }
