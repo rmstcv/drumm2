@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Sound from '../sound/Sound';
 import "./Drum.css";
 
 class Drum extends Component {
@@ -9,9 +10,9 @@ class Drum extends Component {
                     selected: false,
                   }],
             activePad: false,
-            start: false
+            //start: false
         };
-        this.active = 0; 
+        this.active = 0;
         // this.timer = false;
         // this.interval = this.interval.bind(this);
         // this.start = this.start.bind(this);
@@ -79,7 +80,7 @@ class Drum extends Component {
     start = () => {
         this.active = 0;
         if (this.props.state.play) {
-            this.timer = setInterval(() => {this.repeat()}, 1000);
+            this.timer = setInterval(() => {this.repeat()}, 200);
             console.log("start");
         } else {
             clearInterval(this.timer)
@@ -116,6 +117,9 @@ class Drum extends Component {
                 <div className="pad-name">
                     {this.props.name}
                 </div>
+                <Sound play={this.props.state.play}
+                       name={this.props.name}
+                       active={this.state.activePad}/>
                 <div className="pad-wrapper">
                     {
                         this.state.pads.map(item => {
