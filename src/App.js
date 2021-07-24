@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       numberOfPads: 8,
-      name: ["KICK", "SNARE", "HIHAT", "DRUM HIT"],
+      name: ["kick", "snare", "hihat", "drumhit"],
       play: false
     }
     this.play = this.play.bind(this)

@@ -19,7 +19,7 @@ class Drum extends Component {
     }
 
     componentDidMount () {
-        console.log("componentDidMount");
+        //console.log("componentDidMount");
         this.createPatterns();
     };
 
@@ -100,7 +100,7 @@ class Drum extends Component {
         if (arrActive[this.active] === "active") {
             this.setState({activePad: this.active + 1});
         } else {
-             this.setState({activePad: false})
+            this.setState({activePad: false})
         }
 
         if (this.active === arrActive.length - 1) {
@@ -111,11 +111,11 @@ class Drum extends Component {
     }
 
     render() {
-        console.log("render");
+        //console.log("render");
         return (
             <div>
                 <div className="pad-name">
-                    {this.props.name}
+                    {this.props.name.toUpperCase()}
                 </div>
                 <Sound play={this.props.state.play}
                        name={this.props.name}
