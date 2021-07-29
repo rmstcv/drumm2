@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import audio from '../../lib/lib';
-import "../sound/Sound.css";
+
+import '../sound/Sound.css';
 
 export default class Sound extends Component{
     constructor(props) {
@@ -8,6 +9,7 @@ export default class Sound extends Component{
         this.state =  {
             currentSound: ''
         };
+        this.audioPlay = new Audio();
         this.soundChange = this.soundChange.bind(this);
     }
     
@@ -21,10 +23,18 @@ export default class Sound extends Component{
         }
     }
 
+    // stop = () => {
+    //    let a = this.props.state.pads.every(item => {
+    //             return item === false;
+    //         });
+    //         console.log(a);
+    
+    // }
+
     play = () => {
         if (this.props.active && this.props.play) {
-            const audioPlay = new Audio(this.state.currentSound);
-            audioPlay.play();  
+            this.audioPlay = new Audio(this.state.currentSound);
+            this.audioPlay.play();  
         }
     }
     
@@ -33,7 +43,7 @@ export default class Sound extends Component{
     }
 
     render() {
-            //console.log("render2");
+            //console.log("renderSOUND");
         return (
             <div>
                 <select  onChange={this.soundChange}>

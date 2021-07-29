@@ -1,4 +1,11 @@
+.wrapper {
+    display: flex;
+    /* width: 50vw; */
+}
+
 .pad-wrapper {
+    /* display: grid;
+    grid-template-columns: repeat(8, 1fr); */
     display: flex;
 }
 
@@ -6,25 +13,39 @@
     text-align: left;
 }
 
+.pad:nth-of-type(4n+1) {
+   background: rgb(33 33 33 / 92%);
+}
+
 .pad {
     width: 3vw;
     height: 3vw;
     margin: 2px 2px;
     cursor: pointer;
-    background: rgb(33 33 33 / 72%);
+    background: rgb(33 33 33 / 62%);
     border-radius: 3px;
 }
-.selected {
+
+.pad.selected {
     background: rgb(255 255 255 / 72%);
 }
 
-.active {
-    animation: activePad;
-    animation-duration: 0.3s;
+.pad.selected.active {
+    background: rgb(255 255 255 / 22%);
+    /* animation: activePad;
+    animation-duration: 0.3s; */
     
 }
 
-@keyframes activePad {
+.muteOff {
+    background: rgb(255 255 255 / 72%);
+}
+
+.muteOn {
+    background: red;
+}
+
+/* @keyframes activePad {
   from {background: rgb(255 255 255 / 22%);}
   to {background: rgb(255 255 255 / 22%);}
-}
+} */

@@ -2,4 +2,11 @@ select {
     width: 6vw;
     background: rgb(33 33 33 / 72%);
     display: block;
+    color: black;
+    border-color: rgb(33 33 33 / 62%);;
+}
+
+option {
+    background: rgb(33 33 33);
+    border: none;
 }

@@ -8,7 +8,7 @@ import hihat01 from '../assets/drums/hihat/E808_CH-01.mp3';
 import hihat02 from '../assets/drums/hihat/E808_CH-06.mp3';
 
 import hit01 from '../assets/drums/hit/E808_CB-13.mp3';
-import hit02 from '../assets/drums/hit/E808_CB-14.mp3';
+import hit02 from '../assets/Arp03(75BPM).wav';
 
 
 function audio () {
@@ -38,7 +38,7 @@ function audio () {
             {name: "hit01", sound: hit01}, 
             {name: "hit02", sound: hit02}
         ],
-               
+
     };
 
     return audioFiles;
