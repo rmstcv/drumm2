@@ -12,9 +12,9 @@ class Drum extends Component {
                     selected: false,
                   }],
             activePad: false,
-            mute: false
-        };
-        
+            mute: false,
+            solo: false
+        };   
     }
 
     componentDidMount () {
@@ -26,9 +26,9 @@ class Drum extends Component {
             this.checkActivePad();
         }
 
-        // if (this.props.numberOfPads !== prevProps.numberOfPads) {
-        //     this.createPatterns();
-        // }
+        if (this.props.solo !== prevProps.solo) {
+            this.checkSolo();
+        }
     }
 
     checkActivePad = () => {
@@ -55,10 +55,10 @@ class Drum extends Component {
 
     isSelected = ({selected, id}) => {
 
-        if (selected === true && id === this.state.activePad) {
+        if (selected && id === this.state.activePad) {
             return "pad selected active"
         } else {
-            if (selected === true && id !== this.state.activePad) {
+            if (selected && id !== this.state.activePad) {
                 return "pad selected"
             } else {
                 return "pad"
@@ -67,12 +67,13 @@ class Drum extends Component {
     }
 
     muteTrack = () => {
-        if (!this.state.mute) {
-           this.setState({mute: true})
-        } else {
-            this.setState({mute: false})
-        }
-        
+        if (!this.props.solo) {
+            if (!this.state.mute) {
+                this.setState({mute: true})
+            } else {
+                this.setState({mute: false})
+            }
+        }  
     }
 
     muteChangeClass = () => {
@@ -83,12 +84,46 @@ class Drum extends Component {
         }
     }
 
+    soloChangeClass = () => {
+        if (this.props.solo === this.props.name) {
+            return "muteOn"
+        } else {
+            return "muteOff"
+        }
+    }
+
+    checkSolo = () => {
+        if (this.props.solo && (this.props.solo !== this.props.name)) {
+            //console.log(this.props.name);
+            this.setState({mute: true});
+        } else {
+            if (!this.props.solo || this.props.solo === this.props.name) {
+            //console.log(this.props.name);
+            this.setState({mute: false})
+            }
+        }
+    }
+
     render() {
         //console.log(this.props.checkedPattern);
         //console.log("render DRUM");
         return (
             <div className="wrapper">
-                <button className={this.muteChangeClass()} onClick={() => this.muteTrack()}>mute</button>
+               <div className="wrapper-buttons">
+                    <div>
+                    <Sound play={this.props.play}
+                           name={this.props.name}
+                           active={this.state.activePad}/>
+                    </div>
+                    <button className={this.muteChangeClass()} 
+                            onClick={() => this.muteTrack()}>
+                            mute
+                    </button>
+                    <button className={this.soloChangeClass()} 
+                            onClick={() => this.props.soloTrack(this.props.name)}>
+                            solo
+                    </button>
+               </div>
                 <div className="pad-wrapper">
                     {
                         this.state.pads.map(item => {
@@ -104,11 +139,7 @@ class Drum extends Component {
                 {/* <div className="pad-name">
                     {this.props.name.toUpperCase()}
                 </div> */}
-                <div>
-                    <Sound play={this.props.play}
-                           name={this.props.name}
-                           active={this.state.activePad}/>
-                </div>
+                
             </div>
         )
     }

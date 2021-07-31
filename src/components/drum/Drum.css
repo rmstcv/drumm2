@@ -45,6 +45,11 @@
     background: red;
 }
 
+.wrapper-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
 /* @keyframes activePad {
   from {background: rgb(255 255 255 / 22%);}
   to {background: rgb(255 255 255 / 22%);}
