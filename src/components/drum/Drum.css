@@ -14,7 +14,7 @@
 }
 
 .pad:nth-of-type(4n+1) {
-   background: rgb(33 33 33 / 92%);
+   background: #5e66688c;
 }
 
 .pad {
@@ -22,34 +22,47 @@
     height: 3vw;
     margin: 2px 2px;
     cursor: pointer;
-    background: rgb(33 33 33 / 62%);
+    background: #5e6668;
     border-radius: 3px;
 }
 
 .pad.selected {
-    background: rgb(255 255 255 / 72%);
+    background: #c1c8c7;
 }
 
 .pad.selected.active {
-    background: rgb(255 255 255 / 22%);
+    background: #d49c6b;
     /* animation: activePad;
     animation-duration: 0.3s; */
     
 }
 
 .muteOff {
-    background: rgb(255 255 255 / 72%);
+    background: #5e6668;
+    color: #d28e5f;
 }
 
 .muteOn {
-    background: red;
+    background: #d28e5f;
+    color: #5e6668;
 }
 
 .wrapper-buttons {
     display: flex;
     flex-direction: column;
+    margin-right: 1vw;
+    justify-content: space-evenly;
 }
 
+.buttons-group button {
+    border: none;
+    width: calc(0.95*3vw);
+} 
+
+.buttons-group {
+    display: flex;
+    justify-content: space-between;
+}
 /* @keyframes activePad {
   from {background: rgb(255 255 255 / 22%);}
   to {background: rgb(255 255 255 / 22%);}

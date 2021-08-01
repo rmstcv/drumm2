@@ -1,12 +1,12 @@
 select {
     width: 6vw;
-    background: rgb(33 33 33 / 72%);
+    background: #5e66688c;
     display: block;
-    color: black;
-    border-color: rgb(33 33 33 / 62%);;
+    color: #1f2429;
+    border: none;
 }
 
 option {
-    background: rgb(33 33 33);
+    background: #5e6668;
     border: none;
 }

@@ -50,7 +50,10 @@ export default class Sound extends Component{
                         {
                             audio[this.props.name].map((item) => {
                                 return (
-                                    <option key={item.name} value={item.sound}>{item.name}</option>
+                                    <option key={item.name} 
+                                            value={item.sound}>
+                                        {item.name}
+                                    </option>
                                 )
                             })
                         }

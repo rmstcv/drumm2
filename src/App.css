@@ -2,8 +2,12 @@
   text-align: center;
 }
 
+:root {
+  --backgr: #252b31;
+}
+
 .App-header {
-  background-color: #282c34;
+  background-color: var(--backgr);
   min-height: 100vh;
   display: flex;
   flex-direction: column;

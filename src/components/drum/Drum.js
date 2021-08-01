@@ -115,14 +115,16 @@ class Drum extends Component {
                            name={this.props.name}
                            active={this.state.activePad}/>
                     </div>
-                    <button className={this.muteChangeClass()} 
-                            onClick={() => this.muteTrack()}>
-                            mute
-                    </button>
-                    <button className={this.soloChangeClass()} 
-                            onClick={() => this.props.soloTrack(this.props.name)}>
-                            solo
-                    </button>
+                    <div className="buttons-group">
+                        <button className={this.muteChangeClass()} 
+                                onClick={() => this.muteTrack()}>
+                                M
+                        </button>
+                        <button className={this.soloChangeClass()} 
+                                onClick={() => this.props.soloTrack(this.props.name)}>
+                                S
+                        </button>
+                    </div>
                </div>
                 <div className="pad-wrapper">
                     {

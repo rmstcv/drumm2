@@ -11,10 +11,10 @@ class App extends Component {
     super(props);
     this.state = {
       numberOfPads: 16,
-      bpm: 70,
+      bpm: 120,
       play: false,
     }
-    this.name = ["kick", "snare", "hihat", "drumhit"]
+    this.name = ["kick", "snare", "hihat", "drumhit","kick", "snare", "hihat", "drumhit"]
     this.play = this.play.bind(this)
   }
 
