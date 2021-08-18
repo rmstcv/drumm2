@@ -23,14 +23,6 @@ export default class Sound extends Component{
         }
     }
 
-    // stop = () => {
-    //    let a = this.props.state.pads.every(item => {
-    //             return item === false;
-    //         });
-    //         console.log(a);
-    
-    // }
-
     play = () => {
         if (this.props.active && this.props.play) {
             this.audioPlay = new Audio(this.state.currentSound);
@@ -43,7 +35,7 @@ export default class Sound extends Component{
     }
 
     render() {
-            //console.log("renderSOUND");
+
         return (
             <div>
                 <select  onChange={this.soundChange}>

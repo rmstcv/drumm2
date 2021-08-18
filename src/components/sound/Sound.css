@@ -1,9 +1,11 @@
 select {
-    width: 6vw;
-    background: #5e66688c;
+    width: 6.5vw;
+    height: 1.5vw;
+    background: #454b4f57;
     display: block;
     color: #1f2429;
     border: none;
+    font-size: 0.8vw;
 }
 
 option {

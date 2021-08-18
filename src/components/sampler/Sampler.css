@@ -1,11 +1,8 @@
 .sampler-pad-wrapper {
     display: flex;
-    /* width: 50vw;
-    margin-bottom: 10px; */
 }
 
 .sample {
-    /* width: calc(6vw + 4px); */
     width: 3vw;
     height: 3vw;
     margin: 2px 2px;

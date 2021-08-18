@@ -1,25 +1,47 @@
 import React from 'react';
 
+import "../menu/Menu.css"
+
 export default function Menu (props) {
-    
+
     const checkPlay = () => {
         if (props.isPlay) {
-            return "STOP"
+            return "active-play play"
         } else {
-            return "PLAY"
+            return "play"
+        }
+    }
+
+    const checkStop = () => {
+        if (props.isPlay) {
+            return "stop"
+        } else {
+            return "stop active-stop"
         }
     }
 
     return(
-        <div>
-            <button onClick={props.play}>
-                {checkPlay()}
-            </button>
-            <button onClick={props.decBpm}>-</button>
-                {props.bpm}
-            <button onClick={props.incBpm}>+</button>
-            {/* <button onClick={this.props.pads8}>8</button>
-            <button onClick={this.props.pads16}>16</button> */}
+        <div className="menu">
+            <div className="buttons-wrapper">
+                <button className={checkPlay()} onClick={props.play}></button>
+                <button className={checkStop()} onClick={props.stop}></button>
+
+                    <div className="bpm"><span className="bpm-descr">bpm</span><span className="bpm-value">{props.bpm}</span></div>
+
+                <button className="bpm-down" 
+                        onMouseDown={props.decBpm} 
+                        onMouseUp={props.stopSetBpm} 
+                        onMouseOut={props.stopSetBpm}>
+                </button>
+
+                <button className="bpm-up" 
+                        onMouseDown={props.incBpm} 
+                        onMouseUp={props.stopSetBpm} 
+                        onMouseOut={props.stopSetBpm}>
+                </button>
+                <div className="logo">DRUMM2</div>
+            </div>
+           
         </div>
     )
 }

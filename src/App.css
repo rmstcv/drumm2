@@ -6,7 +6,7 @@
   --backgr: #252b31;
 }
 
-.App-header {
+.App-container {
   background-color: var(--backgr);
   min-height: 100vh;
   display: flex;
@@ -16,6 +16,12 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+/* .logo {
+  font-size: 1vw;
+  color:  #a7b3b6;
+  text-align: end;
+} */
 
 .work-container {
   display: flex;
