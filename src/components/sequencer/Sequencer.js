@@ -9,30 +9,39 @@ function Sequencer(props) {
 
     useEffect(() => {
         start();
-        return () => clearInterval(timer);
+        return () => {clearTimeout(timer); timer = false};
     }, [props.play, props.bpm]);
 
     const start = () => {
         
         if (props.play) {
-            clearInterval(timer);
             setTimer();
+            
         } else {
             setCheckedPattern(() => 0);
-            clearInterval(timer);
+            return;
         }  
     }
 
     let setTimer = () => {
         let i = 1;
-        timer = setInterval(() => {
-            setCheckedPattern(c => c = i); 
-            if (i  < props.numberOfPads) {
-                i++;  
-            } else {
-                i = 1;
-        }}, secToBpm(props.bpm))
-    }
+        let startTime = new Date().getTime();
+        let time =  0;
+        let interval = secToBpm(props.bpm);
+        timer = setTimeout(function step() {
+
+                                time += interval;
+                                setCheckedPattern(c => c = i); 
+                                if (i  < props.numberOfPads) {
+                                    i++;
+                                } else {
+                                    i = 1;
+                                }
+                                let diff = (new Date().getTime()- startTime) - time;
+                                timer = setTimeout(step, secToBpm(props.bpm) - diff);
+
+                            } ,secToBpm(props.bpm));
+}
 
     const secToBpm = (bpm) => {
         let mSec = (60/bpm)*1000/4;
