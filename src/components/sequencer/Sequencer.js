@@ -1,76 +1,79 @@
-import React, {useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import Drum from '../drum/Drum';
 
-function Sequencer(props) {
+class Sequencer extends Component {
 
-    const [checkedPattern, setCheckedPattern] = useState(0);
-    const [solo, setSolo] = useState(false);
-    let timer = false;
-
-    useEffect(() => {
-        start();
-        return () => {clearTimeout(timer); timer = false};
-    }, [props.play, props.bpm]);
-
-    const start = () => {
-        
-        if (props.play) {
-            setTimer();
-            
-        } else {
-            setCheckedPattern(() => 0);
-            return;
-        }  
+    constructor(props) {
+        super(props);
+        this.state = {
+            checkedPattern: 0,
+            solo: false
+        }
+        this.timer = false;
+        this.i = 0;
+        this.currentBpm = 0;
     }
 
-    let setTimer = () => {
-        let i = 1;
-        let startTime = new Date().getTime();
-        let time =  0;
-        let interval = secToBpm(props.bpm);
-        timer = setTimeout(function step() {
-
-                                time += interval;
-                                setCheckedPattern(c => c = i); 
-                                if (i  < props.numberOfPads) {
-                                    i++;
-                                } else {
-                                    i = 1;
-                                }
-                                let diff = (new Date().getTime()- startTime) - time;
-                                timer = setTimeout(step, secToBpm(props.bpm) - diff);
-
-                            } ,secToBpm(props.bpm));
-}
-
-    const secToBpm = (bpm) => {
-        let mSec = (60/bpm)*1000/4;
-        return mSec;
-    }
-
-    let soloTrack = (nameSolo) => {
-        if (solo === nameSolo) {
-           setSolo(false);
-        } else {
-            setSolo(nameSolo)
+    componentDidUpdate (prevProps) {
+        if (this.props.play !== prevProps.play) {
+            clearTimeout(this.timer); 
+            this.timer = false;
+            this.start();
         }
     }
 
-        return (
+    start = () => {
+        if (this.props.play) {
+            this.step();
+        } else {
+            this.i = 0;
+            this.setState({checkedPattern: 0});
+        }  
+    }
+        
+    step = () => {
+        const startTime = new Date().getTime();
+        
+        if (this.i  < this.props.numberOfPads) {
+            this.i++;
+        } else {
+            this.i = 1;
+        }
+        this.setState({checkedPattern: this.i});
+        this.currentBpm = this.secToBpm(this.props.bpm);
+        let diff = (new Date().getTime() - startTime);
+        this.timer = setTimeout(this.step,  this.currentBpm - diff);
+
+    };
+
+    secToBpm = (bpm) => {
+        let mSec = ((60*1000)/bpm)/4;
+        return mSec;
+    }
+
+    soloTrack = (nameSolo) => {
+        if (this.state.solo === nameSolo) {
+           this.setState({solo: false});
+        } else {
+            this.setState({solo: nameSolo})
+        }
+    }
+
+        render() {
+            return (
                 <div>
-
-                {props.name.map(item => {
-                return <Drum key={item} 
-                         name={item}
-                         play={props.play}
-                         checkedPattern={checkedPattern}
-                         numberOfPads={props.numberOfPads}
-                         soloTrack={soloTrack}
-                         solo={solo}/>  
-              })}
-
+                    {this.props.name.map(item => {
+                        return <Drum key={item} 
+                                name={item}
+                                play={this.props.play}
+                                checkedPattern={this.state.checkedPattern}
+                                numberOfPads={this.props.numberOfPads}
+                                soloTrack={this.soloTrack}
+                                solo={this.state.solo}/>  
+                        })}
                 </div>
-        )
+            )
+        }
 };
 
 export default Sequencer;

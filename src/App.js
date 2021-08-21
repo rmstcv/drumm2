@@ -13,19 +13,23 @@ class App extends Component {
       play: false,
     }
     this.name = [
-                  "KICK", "SNARE", "CLHAT", "OPHAT", "RIMSHOT", "CLAP", "TOM", "PERC", "EFFECT", "SYNTH_A", "SYNTH_B", "VOX"
+                  "KICK", "SNARE", "CLHAT", "OPHAT", "RIMSHOT", 
+                  "CLAP", "TOM", "PERC", "EFFECT", "SYNTH_A", 
+                  "SYNTH_B", "VOX"
                 ]
-    this.play = this.play.bind(this);
-    this.stop = this.stop.bind(this);
     this.timer = false;
   }
 
   play = () => {
-      this.setState({play: true})
+    clearInterval(this.timer);
+    this.timer = false;
+    this.setState({play: true});
   }
 
   stop = () => {
-      this.setState({play: false});
+    clearInterval(this.timer);
+    this.timer = false;
+    this.setState({play: false});
   }
 
   incBpm = () => {
@@ -46,7 +50,6 @@ class App extends Component {
       <div className="App">
         <div className="App-container">
          
-
           <div className="work-container">
             <div>
                <Menu play = {this.play}
@@ -64,7 +67,6 @@ class App extends Component {
 
             </div>
           </div>
-
 
         </div>
       </div>

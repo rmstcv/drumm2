@@ -156,3 +156,115 @@
 // };
 
 // export default Sequencer;
+
+// let startTime = new Date().getTime();
+        // let time =  0;
+        //let interval = secToBpm(props.bpm);
+        // timer = setTimeout(function step() {
+
+        //                         time += secToBpm(props.bpm);
+        //                         setCheckedPattern(c => c = i); 
+        //                         if (i  < props.numberOfPads) {
+        //                             i++;
+        //                         } else {
+        //                             i = 1;
+        //                         }
+        //                         let diff = (new Date().getTime()- startTime) - time;
+        //                         timer = setTimeout(step, secToBpm(props.bpm) - diff);
+
+        //                     } ,secToBpm(props.bpm));
+
+
+        import React, {useState, useEffect} from 'react';
+// import Drum from '../drum/Drum';
+
+// function Sequencer(props) {
+
+//     const [checkedPattern, setCheckedPattern] = useState(0);
+//     const [solo, setSolo] = useState(false);
+//     let timer = false;
+//     let flag = false;
+
+//     let [bpm, setBpm] = useState();
+
+//     useEffect(() => {
+//         //clearTimeout(timer); timer = false;
+//         flag = true;
+//         start();
+//         console.log("start");
+//         console.log(timer);
+//         return () => {clearTimeout(timer); timer = false};
+//     }, [props.play]);
+
+//     useEffect(() => {
+//         setBpm(props.bpm);
+//         flag = false;
+//         console.log(flag);
+//         clearTimeout(timer); timer = false;
+//         //start();
+//         return () => {clearTimeout(timer); timer = false};
+//     }, [props.bpm]);
+
+//     const start = () => {
+//         if (props.play) {
+//             //setTimer();
+//             clearTimeout(timer); timer = false
+//             step();
+//         } else {
+//             setCheckedPattern(() => 0);  
+//         }  
+//     }
+// let i = 1;
+//     //let setTimer = () => {
+        
+//         let step = () => {
+//             console.log(flag);
+//             if (!flag){return};
+//             let startTime = new Date().getTime();
+//             setCheckedPattern(c => c = i); 
+//             if (i  < props.numberOfPads) {
+//                 i++;
+//             } else {
+//                 i = 1;
+//             }
+//             let diff = (new Date().getTime() - startTime);
+//             //console.log(diff);
+//             console.log(timer);
+//             console.log(bpm);
+//             clearTimeout(timer); timer = false;
+//             timer = setTimeout(step, secToBpm(bpm) - diff);
+//         };
+//        // step();
+// //}
+
+//     const secToBpm = (bpm) => {
+//         let mSec = ((60*1000)/bpm)/4;
+//         return mSec;
+//     }
+
+//     let soloTrack = (nameSolo) => {
+//         if (solo === nameSolo) {
+//            setSolo(false);
+//         } else {
+//             setSolo(nameSolo)
+//         }
+//     }
+
+//         return (
+//                 <div>
+
+//                 {props.name.map(item => {
+//                 return <Drum key={item} 
+//                          name={item}
+//                          play={props.play}
+//                          checkedPattern={checkedPattern}
+//                          numberOfPads={props.numberOfPads}
+//                          soloTrack={soloTrack}
+//                          solo={solo}/>  
+//               })}
+
+//                 </div>
+//         )
+// };
+
+// export default Sequencer;
