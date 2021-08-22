@@ -29,8 +29,28 @@
     background: #d28e5f
 }
 
-.pad.selected.active {
+/* .pad.selected.active {
     background: #5e6668;   
+} */
+
+.pad.selected.active {
+    animation: activePad;
+    animation-duration: 0.3s;
+}
+
+@keyframes activePad{
+  from {background: #5e6668;}
+  to {background: #d28e5f;}
+}
+
+.pad.selected.active:nth-of-type(4n+1) {
+    animation: activePad1th;
+    animation-duration: 0.3s;
+}
+
+@keyframes activePad1th {
+  from {background: #5e66688c;}
+  to {background: #d28e5f;}
 }
 
 .muteOff {

@@ -11,6 +11,7 @@ class App extends Component {
       numberOfPads: 32,
       bpm: 120,
       play: false,
+      solo: []
     }
     this.name = [
                   "KICK", "SNARE", "CLHAT", "OPHAT", "RIMSHOT", 
@@ -18,6 +19,7 @@ class App extends Component {
                   "SYNTH_B", "VOX"
                 ]
     this.timer = false;
+    this.soloAll = [];
   }
 
   play = () => {
@@ -45,6 +47,16 @@ class App extends Component {
     this.timer = false;
   }
 
+  addSolo = (nameSolo) => {
+    this.soloAll.push(nameSolo);
+    this.setState({solo: this.soloAll});
+  }
+
+  removeSolo = (nameSolo) => {
+    this.soloAll = this.soloAll.filter((n) => {return n !== nameSolo});
+    this.setState({solo: this.soloAll});
+  }
+
   render() {
     return (
       <div className="App">
@@ -60,10 +72,18 @@ class App extends Component {
                 incBpm={this.incBpm}
                 stopSetBpm={this.stopSetBpm}/>
 
-              <Sequencer name={this.name}
-                         play={this.state.play}
-                         bpm={this.state.bpm}
-                         numberOfPads={this.state.numberOfPads}/>
+              <div>
+                    {this.name.map(item => {
+                        return <Sequencer key={item} 
+                                name={item}
+                                play={this.state.play}
+                                numberOfPads={this.state.numberOfPads}
+                                bpm={this.state.bpm}
+                                addSolo={this.addSolo}
+                                removeSolo={this.removeSolo}
+                                solo={this.state.solo}/>  
+                        })}
+                </div>
 
             </div>
           </div>

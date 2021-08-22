@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import secToBpm from '../secToBpm';
 import audio from '../../lib/lib';
 
 import '../sound/Sound.css';
@@ -11,6 +12,10 @@ export default class Sound extends Component{
         };
         this.audioPlay = new Audio();
         this.soundChange = this.soundChange.bind(this);
+        
+        this.i = 0;
+        this.timer = false;
+        this.solo = true;
     }
     
     componentDidMount () {
@@ -18,16 +23,35 @@ export default class Sound extends Component{
     }
 
     componentDidUpdate (prevProps) {
-        if (this.props.active !== prevProps.active) {
-            this.play();
+        if (this.props.play !== prevProps.play) {
+            clearTimeout(this.timer);
+            if (this.props.play) {
+                this.play();
+            } else {
+                 clearTimeout(this.timer);
+                 this.i = 0;
+            }
         }
     }
 
     play = () => {
-        if (this.props.active && this.props.play) {
+        const startTime = new Date().getTime();
+        this.props.addActivePad(this.props.pads[this.i].id);
+
+        if (this.props.pads[this.i].selected && !this.props.mute && (this.props.solo || this.props.soloAll.length === 0)){
             this.audioPlay = new Audio(this.state.currentSound);
-            this.audioPlay.play();  
+            this.audioPlay.play();
         }
+        const bpmCurrent = secToBpm(this.props.bpm);
+
+        if (this.i  < 31) {
+            this.i++;
+            
+        } else {
+            this.i = 0;
+        }
+        const diff = (new Date().getTime() - startTime);
+        this.timer = setTimeout(this.play, bpmCurrent - diff);
     }
     
     soundChange(e) {
