@@ -8,14 +8,20 @@ export default class Sound extends Component{
     constructor(props) {
         super(props);
         this.state =  {
-            currentSound: ''
+            currentSound: '',
+            
         };
-        this.audioPlay = new Audio();
         this.soundChange = this.soundChange.bind(this);
         
         this.i = 0;
         this.timer = false;
         this.solo = true;
+
+        this.audioCtx = new AudioContext();
+        this.source = this.audioCtx.createBufferSource();
+
+        this.startTime = null;
+
     }
     
     componentDidMount () {
@@ -23,37 +29,56 @@ export default class Sound extends Component{
     }
 
     componentDidUpdate (prevProps) {
+
         if (this.props.play !== prevProps.play) {
+            this.startTime = new Date().getTime();
             clearTimeout(this.timer);
+            
             if (this.props.play) {
-                this.play();
-            } else {
-                 clearTimeout(this.timer);
-                 this.i = 0;
+                this.play()
+                } else {
+                    clearTimeout(this.timer);
+                     this.i = 0;
             }
         }
     }
 
-    play = () => {
-        const startTime = new Date().getTime();
-        this.props.addActivePad(this.props.pads[this.i].id);
+    addAudioCtx = () => {
+        this.source = this.audioCtx.createBufferSource();
 
-        if (this.props.pads[this.i].selected && !this.props.mute && (this.props.solo || this.props.soloAll.length === 0)){
-            this.audioPlay = new Audio(this.state.currentSound);
-            this.audioPlay.play();
-        }
-        const bpmCurrent = secToBpm(this.props.bpm);
+        fetch(new Request(this.state.currentSound)).then((response) => {
+                return response.arrayBuffer();
+            }).then((buffer) => {
+                this.audioCtx.decodeAudioData(buffer, (decodedData) =>  {
+                    this.source.buffer = decodedData;
+                    this.source.connect(this.audioCtx.destination);
+                });
+            });
 
-        if (this.i  < 31) {
-            this.i++;
-            
-        } else {
-            this.i = 0;
-        }
-        const diff = (new Date().getTime() - startTime);
-        this.timer = setTimeout(this.play, bpmCurrent - diff);
+        this.source.start(); 
     }
-    
+
+    play = () => {
+        
+        if (new Date().getTime() > (this.startTime + (this.i+1)*secToBpm(this.props.bpm))) {
+            this.props.addActivePad(this.props.pads[this.i].id);
+
+            if (this.props.pads[this.i].selected && !this.props.mute && (this.props.solo || this.props.soloAll.length === 0)) {
+                this.addAudioCtx();
+            }
+           
+            if (this.i  < 31) {
+                this.i++;
+                
+                } else {
+                    this.i = 0;
+                    this.startTime = new Date().getTime();
+                }
+         
+        }
+        this.timer = setTimeout(this.play, 1);
+    }
+
     soundChange(e) {
         this.setState({currentSound: e.target.value});
     }

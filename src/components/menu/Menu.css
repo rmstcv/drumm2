@@ -94,3 +94,62 @@ button {
   color:  #778183;
   margin: auto 0.5vw 0.2vw auto;
 }
+
+@media (max-width: 1200px) {
+
+    .bpm {
+        font-size: 3vw;
+        margin-left: 2vw;
+    }
+
+    .bpm-descr {
+        font-size: 2vw;
+    }
+
+    .bpm-value {
+        width: 5vw;
+    }   
+
+    .bpm-up {
+        border-left: 1vw solid transparent;
+        border-right: 1vw solid transparent;
+        border-bottom: 2vw solid #5e66688c;
+    }
+
+    .bpm-up:hover {
+        border-bottom: 2vw solid #a7b3b6;
+    }
+
+
+    .bpm-down {
+        border-left: 1vw solid transparent;
+        border-right: 1vw solid transparent;
+        border-top: 2vw solid #5e66688c;
+    }
+
+    .bpm-down:hover {
+        border-top: 2vw solid #a7b3b6;
+    }
+
+    .play {
+        width: 4vw;
+        height: 4vw;
+        border-top: 2vw solid transparent;
+        border-left: 4vw solid #5e66688c;
+        border-bottom: 2vw solid transparent;
+    }
+
+    .stop {
+        width: 4vw;
+        height: 4vw;
+    }
+    
+    .active-play {
+	    border-left: 4vw solid #24b35d;
+    }
+
+    .buttons-wrapper {
+        padding: 2px;
+    }
+
+}

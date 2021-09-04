@@ -29,10 +29,6 @@
     background: #d28e5f
 }
 
-/* .pad.selected.active {
-    background: #5e6668;   
-} */
-
 .pad.selected.active {
     animation: activePad;
     animation-duration: 0.3s;
@@ -82,4 +78,26 @@
 .buttons-group {
     display: flex;
     justify-content: space-between;
+}
+
+@media (max-width: 1200px) {
+
+    .pad {
+        width: 4vw;
+        height: 2vw;
+    }
+
+    .buttons-group button {
+        width: calc(0.95*3vw);
+        height: 4vw;
+    } 
+
+    .muteOff {
+        font-size: 2vw;
+    }
+
+    .muteOn {
+        font-size: 2vw;
+    }
+
 }
