@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+DRUMM2 is a step-sequencer for quick create music from samples in the style of "electronics", closer to "techno".
+Application created using REACT.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Components:
 
-## Available Scripts
+1. App.js
 
-In the project directory, you can run:
+renders components Menu and Sequencer
 
-### `npm start`
+state:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- the tempo ("bpm")
+- number of pads ("numberOfPads")
+- flag ("play") for indicate then the play button (from Menu component) pressed
+- array of the names of sounds that are played solo (gets value from Sequencer component with function addSolo and removeSolo and sets the state value).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+variables:
 
-### `npm test`
+- array ("name") of names - array of soundset group names
+- timer ("timer") for fast switching tempo value
+- array with names of sounds ("soloAll"). Used to add or remove sound plays solo
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+methods:
 
-### `npm run build`
+- "play" and "stop" - sets flag "play" (gets value from Menu component )
+- "incBpm" and "decBpm" - sets "bpm" (gets value from Menu component )
+- stopSetBpm - stops changing the value of tempo (get value from Menu component )
+- "addSolo" and "removeSolo" - gets name of sound plays solo from Sequencer component
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Menu.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+returns buttons with switch events handlers "play", "stop" and "bpm"
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+functions:
 
-### `npm run eject`
+- "checkPlay" and "checkStop" - checks state "play" through props from App component and adds or removes classes
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. Sequencer.js
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+returns "pads" on page from state "pads", buttons "mute" and "solo", Sound component.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+state:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- array of pads ("pads")
+- flags "activePad", "mute", "solo"
 
-## Learn More
+methods:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- "createPatterns" - creates an array of pads
+- "selectPattern" - handler function. Takes element of - array "pads", toggles it using the imported function "selector".
+- "isSelected" - changes pad class
+- "addActivePad" - sets the pad is active or not (gets from Sound component)
+- "soloTrack" - handler function. Sets state "solo" and will send it up to App component through functions"removeSolo" or "addSolo"
+- "muteTrack" - handler function. Toggles state "mute"
+- "muteChangeClass" and "soloChangeClass" - changes classes of buttons "mute" and "solo"
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Sound.js
 
-### Code Splitting
+returns selector of sounds
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+state:
 
-### Analyzing the Bundle Size
+- current sound ("currentSound") - the name of selected sound
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+variables:
 
-### Making a Progressive Web App
+- "i" - counter, id of the current pad being checked for activity
+- "timer" - timer - checks the compliance of the current time and the planned time of transition to the next pad using bpm
+- "startTime" - time of the start playing, start count
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+methods:
 
-### Advanced Configuration
+- "addAudioCtx" - creates Audio Context and playing "currentSound"
+- "play" - looping planned time checking of transition to the next pad and call "addAudioCtx" if pad is active (passes the parameter "i" to the function "addActivePad" in Sequencer component. This is needed to update the pad class in Sound component, if pad with id = "i" is active - function "selected" adds to pad class ".active" class)
+- "soundChange" - changes selected sound
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+5. Secondary functions:
 
-### Deployment
+- "secToBpm" - gets "bpm" and convert it to msec
+- "selector" - gets array of pads and id current pad. Marks the pad with id = "id" as "selected"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+6. Lib.js
 
-### `npm run build` fails to minify
+the library with imported sounds
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- names in array of soundset group names in App.js (state "name") MUST MATCH with names in variable "soundBase"
+- function "audio" returns names of sounds for use in selectors of sounds in Sound component ("currentSound")

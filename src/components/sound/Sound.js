@@ -15,7 +15,6 @@ export default class Sound extends Component{
         
         this.i = 0;
         this.timer = false;
-        this.solo = true;
 
         this.audioCtx = new AudioContext();
         this.source = this.audioCtx.createBufferSource();

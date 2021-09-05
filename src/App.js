@@ -73,17 +73,17 @@ class App extends Component {
                 stopSetBpm={this.stopSetBpm}/>
 
               <div>
-                    {this.name.map(item => {
-                        return <Sequencer key={item} 
-                                name={item}
-                                play={this.state.play}
-                                numberOfPads={this.state.numberOfPads}
-                                bpm={this.state.bpm}
-                                addSolo={this.addSolo}
-                                removeSolo={this.removeSolo}
-                                solo={this.state.solo}/>  
-                        })}
-                </div>
+                {this.name.map(item => {
+                  return <Sequencer key={item} 
+                          name={item}
+                          play={this.state.play}
+                          numberOfPads={this.state.numberOfPads}
+                          bpm={this.state.bpm}
+                          addSolo={this.addSolo}
+                          removeSolo={this.removeSolo}
+                          solo={this.state.solo}/>  
+                  })}
+              </div>
 
             </div>
           </div>
