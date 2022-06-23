@@ -17,6 +17,6 @@
 
 ---
 
-### **[Demo page](https://rmstcv.github.io/drumm2/build)**
+### **[Demo page](https://rmstcv.github.io/drumm2/)**
 
 #### **[docs](doc/Description%20of%20components.md)**
